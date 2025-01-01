@@ -8,8 +8,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
+if (!process.env.ANTHROPIC_API_KEY) {
+    console.error('ANTHROPIC_API_KEY environment variable is required');
+    process.exit(1);
+}
+
 const anthropic = new Anthropic({
-    apiKey: 'sk-ant-api03-6DfHt42_XxwZgZaHpXydyA8YeYOvKJ8xJkKTFHUWHBL1lzQPrQSoYVRYEGqkWDw5H4RJRLTQzh5eiAG0h_ZQYA-uZXFQQAA'
+    apiKey: process.env.ANTHROPIC_API_KEY
 });
 
 app.post('/api/insights', async (req, res) => {
