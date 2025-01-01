@@ -38,17 +38,55 @@ The following environment variables are required:
 
 ## Deployment
 
-This application is configured for Heroku deployment:
+### Option 1: Azure Web App Deployment
 
-1. Create a new Heroku app
-2. Add the Anthropic API key to your Heroku config vars:
+1. Create a new Azure Web App:
+   ```bash
+   az webapp create --resource-group YourResourceGroup --plan YourServicePlan --name your-app-name --runtime "NODE|18-lts"
+   ```
+
+2. Configure environment variables in Azure:
+   ```bash
+   az webapp config appsettings set --name your-app-name --resource-group YourResourceGroup --settings ANTHROPIC_API_KEY="your_api_key"
+   ```
+
+3. Deploy using Azure CLI:
+   ```bash
+   az webapp deployment source config-local-git --name your-app-name --resource-group YourResourceGroup
+   git remote add azure <url_from_previous_command>
+   git push azure master
+   ```
+
+Alternatively, you can deploy directly from Visual Studio:
+1. Open the project in Visual Studio
+2. Right-click on the project in Solution Explorer
+3. Select "Publish"
+4. Choose "Azure" as the target
+5. Follow the wizard to configure your Azure Web App
+6. Click "Publish"
+
+Remember to configure the environment variable `ANTHROPIC_API_KEY` in the Azure Portal under Configuration > Application Settings.
+
+### Option 2: Local Deployment
+
+1. Install dependencies:
 ```bash
-heroku config:set ANTHROPIC_API_KEY=your_api_key
+npm install
 ```
-3. Deploy using Heroku Git:
+
+2. Set environment variables:
 ```bash
-git push heroku master
+set ANTHROPIC_API_KEY=your_api_key  # Windows
+# or
+export ANTHROPIC_API_KEY=your_api_key  # Linux/Mac
 ```
+
+3. Start the server:
+```bash
+npm start
+```
+
+The application will be available at http://localhost:3000
 
 ## License
 
