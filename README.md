@@ -1,21 +1,35 @@
-# AI-Powered Budget Calculator
+# Starfleet Budget Console 🚀
 
-An interactive budget calculator with real-time AI insights powered by Claude 3 Sonnet. This application helps you manage your income and expenses while providing personalized financial recommendations.
+A Star Trek LCARS-inspired budget management system with AI-powered insights. This application helps Starfleet officers manage their credit allocations with an authentic LCARS interface design.
 
 ## Features
 
-- Add and track multiple income sources
-- Manage various expenses with pre-populated categories
-- Real-time calculations of remaining balance
-- AI-powered financial insights and recommendations using Claude 3 Sonnet
-- Mobile-responsive design
+- 🖥️ LCARS-style interface with authentic Star Trek aesthetics
+- 💫 Animated UI elements with photon-like glow effects
+- 🤖 AI-powered Computer Analysis using Claude 3 Sonnet
+- 📊 Real-time credit calculations
+- 💾 Data export/import capabilities
+- 🔄 Emergency data purge function
 
 ## Technology Stack
 
-- Frontend: HTML, CSS, JavaScript
+- Frontend: HTML, CSS, JavaScript with LCARS design system
 - Backend: Node.js, Express
 - AI: Anthropic Claude 3 Sonnet API
-- Deployment: Heroku
+- Deployment: Vercel's subspace network
+
+## Live Console
+
+Access the console at: https://budget-calculator-25yv3amwp-markjspiveygmailcoms-projects.vercel.app
+
+## Features
+
+- Add and track multiple credit sources
+- Manage various credit allocations
+- Real-time calculations of remaining balance
+- AI-powered financial insights
+- Mobile-responsive design for all viewscreens
+- Import/Export data to secure JSON files
 
 ## Local Development
 
@@ -24,61 +38,9 @@ An interactive budget calculator with real-time AI insights powered by Claude 3 
 npm install
 ```
 
-2. Start the server:
-```bash
-npm start
-```
-
-3. Open http://localhost:3000 in your browser
-
-## Environment Variables
-
-The following environment variables are required:
-- `ANTHROPIC_API_KEY`: Your Anthropic API key for Claude AI
-
-## Deployment
-
-### Option 1: Azure Web App Deployment
-
-1. Create a new Azure Web App:
-   ```bash
-   az webapp create --resource-group YourResourceGroup --plan YourServicePlan --name your-app-name --runtime "NODE|18-lts"
-   ```
-
-2. Configure environment variables in Azure:
-   ```bash
-   az webapp config appsettings set --name your-app-name --resource-group YourResourceGroup --settings ANTHROPIC_API_KEY="your_api_key"
-   ```
-
-3. Deploy using Azure CLI:
-   ```bash
-   az webapp deployment source config-local-git --name your-app-name --resource-group YourResourceGroup
-   git remote add azure <url_from_previous_command>
-   git push azure master
-   ```
-
-Alternatively, you can deploy directly from Visual Studio:
-1. Open the project in Visual Studio
-2. Right-click on the project in Solution Explorer
-3. Select "Publish"
-4. Choose "Azure" as the target
-5. Follow the wizard to configure your Azure Web App
-6. Click "Publish"
-
-Remember to configure the environment variable `ANTHROPIC_API_KEY` in the Azure Portal under Configuration > Application Settings.
-
-### Option 2: Local Deployment
-
-1. Install dependencies:
-```bash
-npm install
-```
-
 2. Set environment variables:
 ```bash
-set ANTHROPIC_API_KEY=your_api_key  # Windows
-# or
-export ANTHROPIC_API_KEY=your_api_key  # Linux/Mac
+export ANTHROPIC_API_KEY=your_api_key
 ```
 
 3. Start the server:
@@ -86,8 +48,31 @@ export ANTHROPIC_API_KEY=your_api_key  # Linux/Mac
 npm start
 ```
 
-The application will be available at http://localhost:3000
+4. Open http://localhost:3000 in your terminal viewer
+
+## Environment Variables
+
+The following environment variables are required:
+- `ANTHROPIC_API_KEY`: Your Anthropic API key for Computer Analysis
+
+## Deployment
+
+The application is configured for deployment on Vercel:
+
+1. Create a new Vercel project
+2. Add the Anthropic API key to your Vercel environment variables
+3. Deploy using Vercel CLI or GitHub integration
+
+## Interface Design
+
+The interface uses the official LCARS color scheme:
+- Primary: #f90 (Orange/Gold)
+- Secondary: #c66 (Red)
+- Tertiary: #99c (Purple/Blue)
+- Background: #000 (Space Black)
+- Text: #fff (White)
+- Accent: #fc6 (Light Orange)
 
 ## License
 
-MIT
+MIT - Starfleet Open Source Initiative
