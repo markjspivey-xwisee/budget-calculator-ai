@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&display=swap');
+
+:root {
+    --primary: #f90;
+    --secondary: #c66;
+    --tertiary: #99c;
+    --background: #000;
+    --text: #fff;
+    --accent: #fc6;
+    --panel: #111;
+}
+
+body {
+    font-family: 'Antonio', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(25, 25, 75, 0.2), transparent),
+        linear-gradient(45deg, rgba(0, 0, 50, 0.1) 0%, transparent 100%);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--panel);
+    padding: 20px;
+    border-radius: 15px;
+    border-left: 8px solid var(--primary);
+    box-shadow: 0 0 20px rgba(255, 153, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255, 153, 0, 0.3);
+}
+
+h2 {
+    color: var(--secondary);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--secondary);
+    padding-bottom: 5px;
+    font-size: 1.8em;
+}
+
+.section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: rgba(17, 17, 17, 0.8);
+    border-radius: 12px;
+    border-left: 4px solid var(--tertiary);
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: 12px;
+    background-color: var(--panel);
+    border: 1px solid var(--tertiary);
+    border-radius: 8px;
+    color: var(--text);
+    flex: 1;
+    font-family: 'Antonio', sans-serif;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(255, 153, 0, 0.2);
+}
+
+button {
+    padding: 12px 24px;
+    background-color: var(--primary);
+    color: var(--background);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Antonio', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    background-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 153, 0, 0.3);
+}
+
+.delete-btn {
+    background-color: var(--secondary);
+    padding: 8px 16px;
+    font-size: 0.9em;
+}
+
+.delete-btn:hover {
+    background-color: #f44;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--tertiary);
+    color: var(--background);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td {
+    background-color: rgba(17, 17, 17, 0.6);
+}
+
+tr:hover td {
+    background-color: rgba(25, 25, 25, 0.8);
+}
+
+.total {
+    font-weight: bold;
+    text-align: right;
+    font-size: 1.2em;
+    color: var(--accent);
+    padding: 10px;
+    border-top: 2px solid var(--tertiary);
+}
+
+.summary {
+    background-color: rgba(17, 17, 17, 0.9);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border-left: 4px solid var(--primary);
+}
+
+.balance {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 153, 0, 0.3);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.action-buttons button {
+    min-width: 150px;
+    background-color: var(--tertiary);
+}
+
+.action-buttons button:hover {
+    background-color: var(--accent);
+}
+
+.insights-section {
+    background-color: rgba(17, 17, 17, 0.9);
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 30px;
+    border-left: 4px solid var(--accent);
+}
+
+#insights {
+    line-height: 1.8;
+    color: var(--text);
+    padding: 15px;
+    background-color: rgba(25, 25, 25, 0.6);
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .input-group {
+        flex-direction: column;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .action-buttons button {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .container {
+        padding: 15px;
+    }
+}
+
+/* Animated glow effect for buttons */
+@keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(255, 153, 0, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(255, 153, 0, 0.5); }
+    100% { box-shadow: 0 0 5px rgba(255, 153, 0, 0.3); }
+}
+
+button:focus {
+    animation: glow 2s infinite;
+}

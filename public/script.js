@@ -121,6 +121,77 @@ function updateTotals() {
     updateInsights(totalIncome, totalExpenses, remainingBalance);
 }
 
+// Clear all data from tables
+function clearAllData() {
+    if (confirm('Are you sure you want to clear all data?')) {
+        document.querySelector('#income-list tbody').innerHTML = '';
+        document.querySelector('#expense-list tbody').innerHTML = '';
+        updateTotals();
+    }
+}
+
+// Export data to JSON file
+function exportToJson() {
+    const incomeRows = Array.from(document.querySelectorAll('#income-list tbody tr')).map(row => ({
+        description: row.cells[0].textContent,
+        amount: parseFloat(row.cells[1].textContent.replace(/[$,]/g, ''))
+    }));
+
+    const expenseRows = Array.from(document.querySelectorAll('#expense-list tbody tr')).map(row => ({
+        description: row.cells[0].textContent,
+        amount: parseFloat(row.cells[1].textContent.replace(/[$,]/g, ''))
+    }));
+
+    const data = {
+        income: incomeRows,
+        expenses: expenseRows
+    };
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'budget-data.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// Import data from JSON file
+async function importFromJson(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    try {
+        const text = await file.text();
+        const data = JSON.parse(text);
+
+        // Clear existing data
+        clearAllData();
+
+        // Import income data
+        if (data.income && Array.isArray(data.income)) {
+            data.income.forEach(item => {
+                addIncomeToTable(item.description, item.amount);
+            });
+        }
+
+        // Import expense data
+        if (data.expenses && Array.isArray(data.expenses)) {
+            data.expenses.forEach(item => {
+                addExpenseToTable(item.description, item.amount);
+            });
+        }
+
+        updateTotals();
+        event.target.value = ''; // Reset file input
+    } catch (error) {
+        console.error('Error importing data:', error);
+        alert('Error importing data. Please make sure the file is valid JSON.');
+    }
+}
+
 // Calculate total from a table
 function calculateTotal(tableId) {
     let total = 0;
@@ -156,7 +227,7 @@ async function updateInsights(totalIncome, totalExpenses, remainingBalance) {
         // Call the server endpoint for AI insights
         const apiUrl = window.location.hostname === 'localhost' 
             ? 'http://localhost:3000/api/insights'
-            : '/api/insights';
+            : `${window.location.origin}/api/insights`;
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {

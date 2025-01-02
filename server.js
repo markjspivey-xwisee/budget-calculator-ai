@@ -1,12 +1,23 @@
-const express = require('express');
-const cors = require('cors');
-const Anthropic = require('@anthropic-ai/sdk');
-const path = require('path');
+import express from 'express';
+import cors from 'cors';
+import Anthropic from '@anthropic-ai/sdk';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve index.html for root path
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 if (!process.env.ANTHROPIC_API_KEY) {
     console.error('ANTHROPIC_API_KEY environment variable is required');
@@ -41,13 +52,36 @@ Provide 3-4 specific, actionable insights and recommendations based on:
 
 Format each insight as a bullet point starting with "•" and keep the total response under 400 characters.`;
 
+        console.log('Sending prompt to Claude:', prompt);
         const message = await anthropic.messages.create({
             model: 'claude-3-sonnet-20240229',
             max_tokens: 400,
             messages: [{ role: 'user', content: prompt }]
         });
 
-        res.json({ insights: message.content });
+        console.log('Claude response:', JSON.stringify(message, null, 2));
+        
+        // Handle the response structure correctly
+        if (message && message.content && Array.isArray(message.content)) {
+            const content = message.content[0];
+            if (content && typeof content === 'object' && content.text) {
+                const insights = content.text;
+                console.log('Extracted insights:', insights);
+                res.json({ insights });
+            } else {
+                console.error('Invalid content structure:', content);
+                res.status(500).json({ 
+                    error: 'Invalid content structure in AI response',
+                    details: { content, fullMessage: message }
+                });
+            }
+        } else {
+            console.error('Invalid message structure:', message);
+            res.status(500).json({ 
+                error: 'Invalid message structure from AI service',
+                details: message
+            });
+        }
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Failed to generate insights' });
